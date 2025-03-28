@@ -1,0 +1,64 @@
+openapi: 3.0.1
+info:
+  title: PXQ Docs Agent
+  description: AI agent for PXQ-Neura document creation and management in Google Docs and Drive.
+  version: "1.0.0"
+servers:
+  - url: https://www.googleapis.com
+paths:
+  /drive/v3/files:
+    get:
+      operationId: listFiles
+      summary: List files in Google Drive
+      responses:
+        '200':
+          description: OK
+      security:
+        - OAuth2: [drive.file]
+
+  /drive/v3/files/{fileId}:
+    get:
+      operationId: getFile
+      summary: Get a specific file by ID
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File retrieved
+      security:
+        - OAuth2: [drive.file]
+
+  /documents/v1/documents:
+    post:
+      operationId: createDocument
+      summary: Create a Google Doc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+      responses:
+        '200':
+          description: Document created
+      security:
+        - OAuth2: [documents]
+
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/documents: Access and manage Google Docs
+            https://www.googleapis.com/auth/drive.file: View and manage Google Drive files created or opened by the app
