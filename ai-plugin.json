@@ -16,7 +16,7 @@
   },
   "api": {
     "type": "openapi",
-    "url": "https://animeuniverse.com/openapi.yaml",
+    "url": "https://raw.githubusercontent.com/dakaranai/PXQ-Neura-Repo/main/openapi.yaml",
     "is_user_authenticated": true
   },
   "logo_url": "https://animeuniverse.com/assets/logo.png",
